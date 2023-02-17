@@ -16,9 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 admin.site.site_header = 'Mobile tracker using GPs'
+from account.views import Welcome,First,Second,third,fourth
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("markers/api/", include("markers.api")),
     path("markers/", include("markers.urls")),
     path("api/", include("api.urls")),
+    path('',Welcome,name="welcome"),
+    path('first/',First,name="First"),
+    path('second/',Second,name="second"),
+    path('third/',third,name="third"),
+    path('fourth/',fourth,name="fourth"),
+    #
 ]

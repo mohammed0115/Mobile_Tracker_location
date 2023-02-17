@@ -1,4 +1,4 @@
-# from django.db import models
+from django.db import models
 
 # Create your models here.
 from django.contrib.gis.db import models
@@ -39,7 +39,7 @@ from account.models import User
 class Marker(models.Model):
     ip = models.CharField(max_length=15)
     network=models.CharField(max_length=15)
-    network=models.CharField(max_length=15)
+    version=models.CharField(max_length=15)
     city =models.CharField(max_length=70)
     region =models.CharField(max_length=70)
     region_code =models.CharField(max_length=7)
@@ -65,7 +65,7 @@ class Marker(models.Model):
     latitude  = models.DecimalField(max_digits=10, decimal_places=6)
     longitude = models.DecimalField(max_digits=10, decimal_places=6)
     location = models.PointField()
-    user = models.ForeignKey()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.ip
     
@@ -76,7 +76,11 @@ class Marker(models.Model):
 
 
 
-from django.db import models
+
+class Phone(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    serial_number = models.CharField(max_length=50);
+    IMEMI         = models.CharField(max_length=50)
 
 
 class Venue(models.Model):
