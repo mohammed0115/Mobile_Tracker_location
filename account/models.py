@@ -115,8 +115,8 @@ class User(AbstractBaseUser,PermissionsMixin):
     is_admin        = models.BooleanField(default=False)
     is_superuser    = models.BooleanField(default=False)
     # groups = models.OneToOneField(Group)
-    # user_permissions =User.user_permissions
-    # groups=User.groups
+    user_permissions =User.user_permissions
+    groups=User.groups
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name', 'National_number','phone_number',]
