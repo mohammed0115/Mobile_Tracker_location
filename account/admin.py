@@ -29,11 +29,12 @@ class CustomUserAdmin(UserAdmin):
     
     
     fieldsets = (
-        (None, {'fields': ('email', 'password','phone_number','full_name','National_number',
-                    'address','date_of_birth','gender','user_type','Business_name')}),
+        
        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser',
                                    'groups','user_permissions'
                                       )}),
+      (None, {'fields': ('email', 'password','phone_number','full_name','National_number',
+                    'address','date_of_birth','gender','user_type','Business_name')}),
       
     )
     filter_horizontal=('groups','user_permissions',)
