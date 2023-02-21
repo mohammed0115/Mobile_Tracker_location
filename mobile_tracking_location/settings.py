@@ -64,9 +64,9 @@ INSTALLED_APPS = [
     'import_export',
 ]
 AUTH_USER_MODEL = 'account.User'
-AUTH_USER_MODEL = 'auth.User'
+# AUTH_USER_MODEL = 'auth.User'
 # GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH')
-# GDAL_LIBRARY_PATH = "C:\\OSGeo4W\\bin\\gdal306.dll"
+#GDAL_LIBRARY_PATH = "C:\\OSGeo4W\\bin\\gdal306.dll"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
