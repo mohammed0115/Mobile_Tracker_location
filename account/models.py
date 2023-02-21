@@ -86,7 +86,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-class User(AbstractBaseUser,PermissionsMixin):
+class User(PermissionsMixin,AbstractBaseUser):
     USER_TYPE_ADMIN=0
     USER_TYPE_ORGANIZATION=1
     USER_TYPE_EVALUATOR=3
@@ -129,11 +129,11 @@ class User(AbstractBaseUser,PermissionsMixin):
         # Simplest possible answer: Yes, always
         return True
 
-    # @staticmethod
-    # def has_module_perms(app_label):
-    #     # "Does the user have permissions to view the app `app_label`?"
-    #     # Simplest possible answer: Yes, always
-    #     return True
+    @staticmethod
+    def has_module_perms(app_label):
+        # "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return False
 
     def __str__(self):
         return "{}".format(self.email)
