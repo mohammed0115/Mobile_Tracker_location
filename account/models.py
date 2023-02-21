@@ -7,10 +7,7 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 import datetime
-
-from django.contrib.auth.models import User,AbstractUser
-# from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import PermissionsMixin
 class CustomUserManager(BaseUserManager):
@@ -89,9 +86,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-class User(AbstractUser,PermissionsMixin):
-    class Meta:
-        db_table='auth_user'
+class User(AbstractBaseUser,PermissionsMixin):
     USER_TYPE_ADMIN=0
     USER_TYPE_ORGANIZATION=1
     USER_TYPE_EVALUATOR=3
@@ -119,16 +114,14 @@ class User(AbstractUser,PermissionsMixin):
     is_staff        = models.BooleanField(default=False)  # a admin user; non super-user
     is_admin        = models.BooleanField(default=False)
     is_superuser    = models.BooleanField(default=False)
-    username        = models.EmailField('user name',default=email, unique=False)
+    # groups = models.OneToOneField(Group)
     # user_permissions =User.user_permissions
     # groups=User.groups
-   
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name', 'National_number','phone_number',]
 
-        # permissions  =
     objects = CustomUserManager()
-    # class Meta:
 
     @staticmethod
     def has_perm(perm, obj=None):
@@ -136,11 +129,11 @@ class User(AbstractUser,PermissionsMixin):
         # Simplest possible answer: Yes, always
         return True
 
-    @staticmethod
-    def has_module_perms(app_label):
-        # "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
-        return True
+    # @staticmethod
+    # def has_module_perms(app_label):
+    #     # "Does the user have permissions to view the app `app_label`?"
+    #     # Simplest possible answer: Yes, always
+    #     return True
 
     def __str__(self):
         return "{}".format(self.email)
@@ -152,16 +145,6 @@ class User(AbstractUser,PermissionsMixin):
         # The user is identified by their email address
         return self.email
     
-
-    def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
-        return True
-    
-    def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
-        return False
 
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
