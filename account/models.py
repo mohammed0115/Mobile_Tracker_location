@@ -127,7 +127,7 @@ class User(PermissionsMixin,AbstractBaseUser):
     def has_perm(perm, obj=None):
         # "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
-        return True
+        return False
 
     @staticmethod
     def has_module_perms(app_label):
