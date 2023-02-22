@@ -118,19 +118,20 @@ class User(PermissionsMixin,AbstractBaseUser):
     REQUIRED_FIELDS = ['full_name', 'National_number','phone_number',]
 
     objects = CustomUserManager()
+    
+    """
+    @staticmethod
+    def has_perm(perm, obj=None):
+        # "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
 
-    # @staticmethod
-    # def has_perm(perm, obj=None):
-    #     # "Does the user have a specific permission?"
-    #     # Simplest possible answer: Yes, always
-    #     return True
-
-    # @staticmethod
-    # def has_module_perms(app_label):
-    #     # "Does the user have permissions to view the app `app_label`?"
-    #     # Simplest possible answer: Yes, always
-    #     return True
-
+    @staticmethod
+    def has_module_perms(app_label):
+        # "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+    """
     # def __str__(self):
     #     return "{}".format(self.email)
     # def get_full_name(self):

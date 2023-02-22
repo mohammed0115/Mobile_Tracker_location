@@ -13,12 +13,13 @@ def get_client_ip(request):
     return ip
 
 def First(request):
-    
+    list=[]
     if request.method == 'POST': # If the form has been submitted...
         form = FirstForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
+            
             
             return HttpResponseRedirect('/second/') # Redirect after POST
     else:
