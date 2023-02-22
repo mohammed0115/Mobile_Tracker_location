@@ -37,8 +37,14 @@ class YelpView(APIView):
 
         return JsonResponse(search_results)
 
+from .location import get_location
 
 class MarkersMapView(TemplateView):
     template_name = "map.html"
+    def get_context_data(self, *args, **kwargs):
+        data=get_location()
+        context = super(MarkersMapView, self).get_context_data(*args, **kwargs)
+        context['data'] = {"lng":data['lng'],"lat":data['lat'],"access_token":settings.ACCESS_TOKEN}
+        return context
 
 

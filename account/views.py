@@ -4,18 +4,29 @@ from django.http import HttpResponseRedirect
 from .forms import FirstForm,SecondForm,ThirdForm,FourForm
 title="هوي يا زول"
 message="أهلا بك في تطبيق تتبع الهواتف في حالة السرقة "
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 def First(request):
+    
     if request.method == 'POST': # If the form has been submitted...
         form = FirstForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
+            
             return HttpResponseRedirect('/second/') # Redirect after POST
     else:
+        print("ip=",get_client_ip(request))
+        user_ip=get_client_ip(request)
         form = FirstForm() # An unbound form
 
-    return render(request, 'first.html', { 'form': form,"title":title,"message":message})
-
+    return render(request, 'first.html', { 'form': form,"title":title,"message":message,"user_ip":user_ip})
 
 
 def Second(request):

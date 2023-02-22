@@ -1,8 +1,17 @@
-from django.db import models
+# from django.db import models
 
 # Create your models here.
 from django.contrib.gis.db import models
 from account.models import User
+# from django.db import models
+from django_google_maps import fields as map_fields
+import django.contrib.gis.db.models as gis_models
+from django.db import models
+
+
+class Rental(models.Model):
+    address = map_fields.AddressField(max_length=200)
+    geolocation = map_fields.GeoLocationField(max_length=100)
 
 """
 {
@@ -64,7 +73,7 @@ class Marker(models.Model):
     country_population  = models.CharField(max_length=40)
     latitude  = models.DecimalField(max_digits=10, decimal_places=6)
     longitude = models.DecimalField(max_digits=10, decimal_places=6)
-    location = models.PointField()
+    location = gis_models.PointField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.ip
@@ -78,7 +87,7 @@ class Marker(models.Model):
 
 
 class Phone(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user          = models.ForeignKey(User, on_delete=models.CASCADE)
     serial_number = models.CharField(max_length=50);
     IMEMI         = models.CharField(max_length=50)
 
@@ -95,8 +104,7 @@ class Venue(models.Model):
     
     
 
-import django.contrib.gis.db.models as gis_models
-from django.db import models
+
 
 
 class Search(models.Model):

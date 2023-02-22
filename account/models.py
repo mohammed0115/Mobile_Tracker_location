@@ -114,41 +114,37 @@ class User(PermissionsMixin,AbstractBaseUser):
     is_staff        = models.BooleanField(default=False)  # a admin user; non super-user
     is_admin        = models.BooleanField(default=False)
     is_superuser    = models.BooleanField(default=False)
-    # groups = models.OneToOneField(Group)
-    # user_permissions =User.user_permissions
-    # groups=User.groups
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name', 'National_number','phone_number',]
 
     objects = CustomUserManager()
 
-    @staticmethod
-    def has_perm(perm, obj=None):
-        # "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
-        return True
+    # @staticmethod
+    # def has_perm(perm, obj=None):
+    #     # "Does the user have a specific permission?"
+    #     # Simplest possible answer: Yes, always
+    #     return True
 
-    @staticmethod
-    def has_module_perms(app_label):
-        # "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
-        return True
+    # @staticmethod
+    # def has_module_perms(app_label):
+    #     # "Does the user have permissions to view the app `app_label`?"
+    #     # Simplest possible answer: Yes, always
+    #     return True
 
-    def __str__(self):
-        return "{}".format(self.email)
-    def get_full_name(self):
-        # The user is identified by their email address
-        return self.full_name
+    # def __str__(self):
+    #     return "{}".format(self.email)
+    # def get_full_name(self):
+    #     # The user is identified by their email address
+    #     return self.full_name
 
-    def get_short_name(self):
-        # The user is identified by their email address
-        return self.email
+    # def get_short_name(self):
+    #     # The user is identified by their email address
+    #     return self.email
     
 
-    def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
-        return True
+    # def has_module_perms(self, app_label):
+    #     "Does the user have permissions to view the app `app_label`?"
+    #     # Simplest possible answer: Yes, always
+    #     return True
 
     

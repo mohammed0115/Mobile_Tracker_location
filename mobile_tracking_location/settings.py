@@ -62,12 +62,13 @@ INSTALLED_APPS = [
     'account',
     "markers",
     'import_export',
+    'django_google_maps',
+
 ]
 AUTH_USER_MODEL = 'account.User'
 # AUTH_USER_MODEL = 'auth.User'
 # GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH')
 #GDAL_LIBRARY_PATH = "C:\\OSGeo4W\\bin\\gdal306.dll"
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -177,3 +178,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'markers/static'),
 )
+
+GOOGLE_MAPS_API_KEY="AIzaSyAOa1i3e3_qWbM_CKtSmR3U3REJX3WFhBU"

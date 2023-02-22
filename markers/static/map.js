@@ -2,6 +2,8 @@ const copy = "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStree
 const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const layer = L.tileLayer(url, { attribution: copy });
 const map = L.map("map", { layers: [layer] });
+
+
 map.fitWorld();
 map.locate()
     .on("locationfound", (e) => map.setView(e.latlng, 8))
