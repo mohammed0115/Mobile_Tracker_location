@@ -75,6 +75,8 @@ class Marker(models.Model):
     longitude = models.DecimalField(max_digits=10, decimal_places=6)
     location = gis_models.PointField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    address = map_fields.AddressField(max_length=200)
+    geolocation = map_fields.GeoLocationField(max_length=100)
     def __str__(self):
         return self.ip
     
