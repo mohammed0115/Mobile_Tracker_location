@@ -8,7 +8,8 @@ from django_google_maps import fields as map_fields
 import django.contrib.gis.db.models as gis_models
 from django.db import models
 
-
+from django.contrib.gis.geos import Point
+from django.contrib.gis.geos import Point
 class Rental(models.Model):
     address = map_fields.AddressField(max_length=200)
     geolocation = map_fields.GeoLocationField(max_length=100)
@@ -46,44 +47,44 @@ class Rental(models.Model):
 
 """
 class Marker(models.Model):
-    ip = models.CharField(max_length=15)
-    network=models.CharField(max_length=15)
-    version=models.CharField(max_length=15)
-    city =models.CharField(max_length=70)
-    region =models.CharField(max_length=70)
-    region_code =models.CharField(max_length=7)
-    country =models.CharField(max_length=7)
-    country_name =models.CharField(max_length=70)
-    country_code =models.CharField(max_length=7)
-    country_code_iso3 =models.CharField(max_length=7)
-    country_capital =models.CharField(max_length=70)
-    country_tld =models.CharField(max_length=7)
-    continent_code  = models.CharField(max_length=4)
+    ip = models.CharField(max_length=15,null=True)
+    network=models.CharField(max_length=50,null=True)
+    version=models.CharField(max_length=15,null=True)
+    city =models.CharField(max_length=70,null=True)
+    region =models.CharField(max_length=70,null=True)
+    region_code =models.CharField(max_length=7,null=True)
+    country =models.CharField(max_length=7,null=True)
+    country_name =models.CharField(max_length=70,null=True)
+    country_code =models.CharField(max_length=7,null=True)
+    country_code_iso3 =models.CharField(max_length=7,null=True)
+    country_capital =models.CharField(max_length=70,null=True)
+    country_tld =models.CharField(max_length=7,null=True)
+    continent_code  = models.CharField(max_length=4,null=True)
     in_eu  = models.BooleanField()
-    postal  = models.CharField(max_length=100)
-    timezone  = models.CharField(max_length=70)
-    utc_offset  = models.CharField(max_length=10)
-    country_calling_code  = models.CharField(max_length=7)
-    currency  = models.CharField(max_length=10)
-    currency_name  = models.CharField(max_length=40)
-    languages  = models.CharField(max_length=100)
-    country_area  = models.CharField(max_length=40)
-    asn  = models.CharField(max_length=20)
-    org = models.CharField(max_length=20)
-    country_population  = models.CharField(max_length=40)
+    postal  = models.CharField(max_length=100,null=True)
+    timezone  = models.CharField(max_length=70,null=True)
+    utc_offset  = models.CharField(max_length=10,null=True)
+    country_calling_code  = models.CharField(max_length=7,null=True)
+    currency  = models.CharField(max_length=10,null=True)
+    currency_name  = models.CharField(max_length=40,null=True)
+    languages  = models.CharField(max_length=100,null=True)
+    country_area  = models.CharField(max_length=40,null=True)
+    asn  = models.CharField(max_length=20,null=True)
+    org = models.CharField(max_length=20,null=True)
+    country_population  = models.CharField(max_length=40,null=True)
     latitude  = models.DecimalField(max_digits=10, decimal_places=6)
     longitude = models.DecimalField(max_digits=10, decimal_places=6)
-    location = gis_models.PointField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    location = gis_models.PointField(geography=True, default=Point(0.0, 0.0))
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     # address = map_fields.AddressField(max_length=200)
-    geolocation = map_fields.GeoLocationField(max_length=100)
+    # geolocation = map_fields.GeoLocationField(max_length=100)
     def __str__(self):
         return self.ip
     
-    def save(self, *args, **kwargs):
-        self.geolocation = f"{self.Latitude},{self.Longitude}"
-        # self.mpoint.x   =    
-        super(Marker, self).save(*args, **kwargs)  
+    # def save(self, *args, **kwargs):
+    #     self.geolocation = f"{self.Latitude},{self.Longitude}"
+    #     # self.mpoint.x   =    
+    #     super(Marker, self).save(*args, **kwargs)  
 
 
 

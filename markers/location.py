@@ -11,13 +11,13 @@ def get_location():
     print(ip_address)
     response = requests.get(f"https://ipapi.co/{ip_address}/json/")
     response=response.json()
-    location_data = {
-       "ip": ip_address,
-       "lat": response.get("latitude"),
-       "lng": response.get("longitude"),
-       "country": response.get("country_name")
-    }
-    return location_data
+    # location_data = {
+    #    "ip": ip_address,
+    #    "lat": response.get("latitude"),
+    #    "lng": response.get("longitude"),
+    #    "country": response.get("country_name")
+    # }
+    return response
     # return "data"
 
 # print(get_location())

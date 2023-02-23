@@ -8,8 +8,6 @@ class SecondForm(forms.Form):
 	password = forms.CharField(label='كلمة السر', max_length=100,widget=forms.PasswordInput)
 	confirm_password = forms.CharField(label='تأكيد كلمة السر', max_length=100,widget=forms.PasswordInput)
 	email= forms.EmailField(label=' الإيميل', max_length=100,widget=forms.EmailInput)
-	class Meta:
-	    fields=('password','email','confirm_password')
 	def clean(self):
 	    cleaned_data = super(SecondForm, self).clean()
 	    password = cleaned_data.get("password")
@@ -18,6 +16,9 @@ class SecondForm(forms.Form):
 		    raise forms.ValidationError(
                 "كلمة المرور وتأكيد كلمة المرور غير متطابقة"
             )
+	class Meta:
+	    fields=('password','email','confirm_password')
+	
 	    
 class ThirdForm(forms.Form):
 	SecretsPassword = forms.CharField(label='أكتب كلمة الأمان', max_length=100)

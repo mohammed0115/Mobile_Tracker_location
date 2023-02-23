@@ -2,7 +2,11 @@ from django.shortcuts import render
 
 from django.http import HttpResponseRedirect
 from .forms import FirstForm,SecondForm,ThirdForm,FourForm
-title="هوي يا زول"
+from account.creator import createUser,createMarkers
+from markers.models import Marker
+from markers.location import get_location,get_ip
+
+title="تطبيق تيم لننبع المواقع"
 message="أهلا بك في تطبيق تتبع الهواتف في حالة السرقة "
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -13,14 +17,19 @@ def get_client_ip(request):
     return ip
 
 def First(request):
-    list=[]
+    user={}
     if request.method == 'POST': # If the form has been submitted...
         form = FirstForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            
-            
+            user={
+                "full_name":request.POST.get('full_name'),
+                "National_Id":request.POST.get('National_Id'),
+                "phone":request.POST.get('phone'),
+                }
+            print(user)
+            request.session['user']=user
             return HttpResponseRedirect('/second/') # Redirect after POST
     else:
         print("ip=",get_client_ip(request))
@@ -36,6 +45,13 @@ def Second(request):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
+            user=request.session['user']
+            user.update({
+                "password":request.POST.get('password'),
+                "confirm_password":request.POST.get('confirm_password'),
+                "email":request.POST.get('email'),
+                })
+            request.session['user']=user
             return HttpResponseRedirect('/third/') # Redirect after POST
     else:
         form = SecondForm() # An unbound form
@@ -48,6 +64,14 @@ def third(request):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
+            user=request.session['user']
+            user.update({
+                "SecretsPassword":request.POST.get('SecretsPassword'),
+                "boolfield":request.POST.get('boolfield'),
+                # "phone":request.POST.get('phone'),
+                })
+            request.session['user']=user
+            print(user)
             return HttpResponseRedirect('/fourth/') # Redirect after POST
     else:
         message="في حالة تعزر إسترجاع حسابك نحتاج الي كلمة أمان لإسترجاع ومتابعة هاتفك"
@@ -61,9 +85,26 @@ def fourth(request):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
+            user=request.session['user']
+            user.update({
+                # "SecretsPassword":request.POST.get('SecretsPassword'),
+                "boolfield1":request.POST.get('boolfield'),
+                # "phone":request.POST.get('phone'),
+                })
+            request.session['user']=user
+            print("ip=",get_client_ip(request),"ip1=",get_ip())
+            print(user)
+            users=createUser(user,request)
+            user_details=get_location()
+            user_details['user']=users
+            print(user_details)
+            
+            createMarkers(user_details)
+
+
             return HttpResponseRedirect('/markers/map/') # Redirect after POST
     else:
-        message=""
+        # message=""
         form = FourForm() # An unbound form
 
     return render(request, 'fourth.html', { 'form': form,"title":title,"message":message})

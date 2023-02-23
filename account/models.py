@@ -110,15 +110,31 @@ class User(PermissionsMixin,AbstractBaseUser):
     phone_number    = models.CharField('Phone Number', max_length=15)
     National_number    = models.CharField('National Id Number', max_length=15)
     Business_name   = models.CharField(max_length=90,null=True,blank=True,)
+    SecretsPassword = models.CharField(max_length=90,null=True,blank=True,)
     is_active       = models.BooleanField(default=True)
     is_staff        = models.BooleanField(default=False)  # a admin user; non super-user
     is_admin        = models.BooleanField(default=False)
     is_superuser    = models.BooleanField(default=False)
+    boolfield1      =models.BooleanField(default=False)
+    boolfield      =models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name', 'National_number','phone_number',]
 
     objects = CustomUserManager()
-    
+    class Meta:
+        permissions = (
+            ('markers | marker | Can change marker', 'markers | marker | Can view marker'),
+            ('markers | rental | Can add rental','markers | rental | Can change rental ', ),
+            ('markers | phone | Can change phone','markers | phone | Can view phone'),
+            ('markers | phone | Can add phone', 'markers | phone | Can change phone'),
+        )
+    """
+   class Meta:
+      class Meta:
+        permissions = (
+            ('can_view_odd_ids', 'can_view_odd_ids'),
+            ('can_view_even_ids', 'can_view_even_ids'),
+        )
     """
     @staticmethod
     def has_perm(perm, obj=None):
@@ -131,7 +147,7 @@ class User(PermissionsMixin,AbstractBaseUser):
         # "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
-    """
+    
     # def __str__(self):
     #     return "{}".format(self.email)
     # def get_full_name(self):
