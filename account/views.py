@@ -85,7 +85,7 @@ def third(request):
         message="في حالة تعزر إسترجاع حسابك نحتاج الي كلمة أمان لإسترجاع ومتابعة هاتفك"
         form = ThirdForm() # An unbound form
 
-    return render(request, 'third.html', { 'user': user,'form': form,"title":title,"message":message})
+    return render(request, 'third.html', { 'form': form,"title":title,"message":message})
 def fourth(request):
     
     if request.method == 'POST': # If the form has been submitted...
