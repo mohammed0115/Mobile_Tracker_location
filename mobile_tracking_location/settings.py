@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 # BASE_DIR = os.path.dirname(PROJECT_DIR)
 # PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
-"""
+# """
 if os.name == 'nt':
     import platform
     OSGEO4W = r"C:\OSGeo4W"
@@ -34,7 +34,7 @@ if os.name == 'nt':
     os.environ['GDAL_DATA'] = OSGEO4W + r"\share\gdal"
     os.environ['PROJ_LIB'] = OSGEO4W + r"\share\proj"
     os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
-"""
+# """
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -68,7 +68,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'account.User'
 # AUTH_USER_MODEL = 'auth.User'
 # GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH')
-# GDAL_LIBRARY_PATH = "C:\\OSGeo4W\\bin\\gdal306.dll"
+GDAL_LIBRARY_PATH = "C:\\OSGeo4W\\bin\\gdal306.dll"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -47,7 +47,7 @@ class Rental(models.Model):
 
 """
 class Marker(models.Model):
-    ip = models.CharField(max_length=15,null=True)
+    ip = models.CharField(max_length=50,null=True)
     network=models.CharField(max_length=50,null=True)
     version=models.CharField(max_length=15,null=True)
     city =models.CharField(max_length=70,null=True)
