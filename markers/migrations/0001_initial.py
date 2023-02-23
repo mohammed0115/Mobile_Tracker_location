@@ -56,8 +56,8 @@ class Migration(migrations.Migration):
             name='Marker',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ip', models.CharField(max_length=15)),
-                ('network', models.CharField(max_length=15)),
+                ('ip', models.CharField(max_length=50)),
+                ('network', models.CharField(max_length=25)),
                 ('version', models.CharField(max_length=15)),
                 ('city', models.CharField(max_length=70)),
                 ('region', models.CharField(max_length=70)),
