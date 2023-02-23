@@ -45,13 +45,17 @@ def Second(request):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            user=request.session['user']
-            user.update({
-                "password":request.POST.get('password'),
-                "confirm_password":request.POST.get('confirm_password'),
-                "email":request.POST.get('email'),
-                })
-            request.session['user']=user
+            user ={}
+            if request.session['user']:
+                user=request.session['user']
+                user.update({
+                    "password":request.POST.get('password'),
+                    "confirm_password":request.POST.get('confirm_password'),
+                    "email":request.POST.get('email'),
+                    })
+                request.session['user']=user
+            else:
+                HttpResponseRedirect('/first/')
             return HttpResponseRedirect('/third/') # Redirect after POST
     else:
         form = SecondForm() # An unbound form
@@ -64,14 +68,18 @@ def third(request):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            user=request.session['user']
-            user.update({
-                "SecretsPassword":request.POST.get('SecretsPassword'),
-                "boolfield":request.POST.get('boolfield'),
-                # "phone":request.POST.get('phone'),
-                })
-            request.session['user']=user
-            print(user)
+            user={}
+            if request.session['user']:
+                user=request.session['user']
+                user.update({
+                    "SecretsPassword":request.POST.get('SecretsPassword'),
+                    "boolfield":request.POST.get('boolfield'),
+                    # "phone":request.POST.get('phone'),
+                    })
+                request.session['user']=user
+                print(user)
+            else:
+                HttpResponseRedirect('/first/')
             return HttpResponseRedirect('/fourth/') # Redirect after POST
     else:
         message="في حالة تعزر إسترجاع حسابك نحتاج الي كلمة أمان لإسترجاع ومتابعة هاتفك"
@@ -85,22 +93,25 @@ def fourth(request):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            user=request.session['user']
-            user.update({
-                # "SecretsPassword":request.POST.get('SecretsPassword'),
-                "boolfield1":request.POST.get('boolfield'),
-                # "phone":request.POST.get('phone'),
-                })
-            request.session['user']=user
-            print("ip=",get_client_ip(request),"ip1=",get_ip())
-            print(user)
-            users=createUser(user,request)
-            user_details=get_location()
-            user_details['user']=users
-            print(user_details)
-            
-            createMarkers(user_details)
-
+            user={}
+            if request.session['user']:
+                user=request.session['user']
+                user.update({
+                    # "SecretsPassword":request.POST.get('SecretsPassword'),
+                    "boolfield1":request.POST.get('boolfield'),
+                    # "phone":request.POST.get('phone'),
+                    })
+                request.session['user']=user
+                print("ip=",get_client_ip(request),"ip1=",get_ip())
+                print(user)
+                users=createUser(user,request)
+                user_details=get_location()
+                user_details['user']=users
+                print(user_details)
+                
+                createMarkers(user_details)
+            else:
+                return HttpResponseRedirect('/first/')
 
             return HttpResponseRedirect('/markers/map/') # Redirect after POST
     else:
