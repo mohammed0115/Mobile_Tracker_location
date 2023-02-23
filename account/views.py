@@ -46,7 +46,7 @@ def Second(request):
             # Process the data in form.cleaned_data
             # ...
             user ={}
-            if user in request.session:
+            if 'user' in request.session:
                 user=request.session['user']
                 user.update({
                     "password":request.POST.get('password'),
@@ -69,7 +69,7 @@ def third(request):
             # Process the data in form.cleaned_data
             # ...
             user={}
-            if user in request.session:
+            if 'user' in request.session:
                 user=request.session['user']
                 user.update({
                     "SecretsPassword":request.POST.get('SecretsPassword'),
@@ -94,7 +94,7 @@ def fourth(request):
             # Process the data in form.cleaned_data
             # ...
             user={}
-            if user in request.session:
+            if 'user' in request.session:
                 user=request.session['user']
                 user.update({
                     # "SecretsPassword":request.POST.get('SecretsPassword'),
