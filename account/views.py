@@ -36,7 +36,7 @@ def First(request):
         user_ip=get_client_ip(request)
         form = FirstForm() # An unbound form
 
-    return render(request, 'first.html', { 'form': form,"title":title,"message":message,"user_ip":user_ip})
+    return render(request, 'first.html', {'user': user,'form': form,"title":title,"message":message,"user_ip":user_ip})
 
 
 def Second(request):
@@ -60,7 +60,7 @@ def Second(request):
     else:
         form = SecondForm() # An unbound form
 
-    return render(request, 'second.html', { 'form': form,"title":title,"message":message})
+    return render(request, 'second.html', {'user': user, 'form': form,"title":title,"message":message})
 def third(request):
     
     if request.method == 'POST': # If the form has been submitted...
@@ -85,7 +85,7 @@ def third(request):
         message="في حالة تعزر إسترجاع حسابك نحتاج الي كلمة أمان لإسترجاع ومتابعة هاتفك"
         form = ThirdForm() # An unbound form
 
-    return render(request, 'third.html', { 'form': form,"title":title,"message":message})
+    return render(request, 'third.html', { 'user': user,'form': form,"title":title,"message":message})
 def fourth(request):
     
     if request.method == 'POST': # If the form has been submitted...
