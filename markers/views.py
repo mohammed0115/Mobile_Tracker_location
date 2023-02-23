@@ -16,6 +16,7 @@ from . import models as map_models
 from . import serializers as map_serializers
 from django.utils.decorators import method_decorator
 
+from .location import get_location
 
 class SearchViewSet(viewsets.ModelViewSet):
     serializer_class = map_serializers.SearchSerializer
@@ -27,12 +28,14 @@ class YelpView(APIView):
 
     def get(self, request, *args, **kwargs):
         yelp_api = YelpAPI(settings.YELP_API_KEY)
-
-        search_results = yelp_api.search_query(**self.request.GET)
-
+        location=get_location()
+        # search_results = yelp_api.search_query(**self.request.GET)
+        latitude = float(location.get('latitude'))
+        search_results = yelp_api.search_query(**[location.get('longitude'),location.get('latitude'),location.get('longitude'),location.get('latitude')])
+        print("data===============>",search_results)
         term = request.GET.get('term')
-        longitude = float(request.GET.get('longitude'))
-        latitude = float(request.GET.get('latitude'))
+        longitude = float(location.get('longitude'))
+        latitude = float(location.get('latitude'))
         results_count = search_results['total']
         map_models.Search.objects.create(term=term,
                                          position=Point(longitude, latitude),
@@ -40,7 +43,6 @@ class YelpView(APIView):
 
         return JsonResponse(search_results)
 
-from .location import get_location1
 
 
 # @login_required(login_url='/accounts/login/')
@@ -55,7 +57,7 @@ class MarkersMapView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         user=self.request.user
-        user_details=get_location1(self.request)
+        user_details=get_location()
         user_details['user']=user
         print(user_details)
         createMarkers(user_details)

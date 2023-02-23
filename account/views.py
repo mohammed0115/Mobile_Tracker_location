@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from .forms import FirstForm,SecondForm,ThirdForm,FourForm
 from account.creator import createUser,createMarkers
 from markers.models import Marker
-from markers.location import get_location,get_ip
+from markers.location import get_location,get_ip,get_location1
 
 title="تطبيق تيم لننبع المواقع"
 message="أهلا بك في تطبيق تتبع الهواتف في حالة السرقة "
@@ -106,7 +106,7 @@ def fourth(request):
                 print("ip=",get_client_ip(request),"ip1=",get_ip())
                 print(user)
                 users=createUser(user,request)
-                user_details=get_location()
+                user_details=get_location1(request)
                 user_details['user']=users
                 print(user_details)
                 
