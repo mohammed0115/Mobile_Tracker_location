@@ -40,7 +40,7 @@ class YelpView(APIView):
 
         return JsonResponse(search_results)
 
-from .location import get_location
+from .location import get_location1
 
 
 # @login_required(login_url='/accounts/login/')
@@ -55,7 +55,7 @@ class MarkersMapView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         user=self.request.user
-        user_details=get_location()
+        user_details=get_location1(self.request)
         user_details['user']=user
         print(user_details)
         createMarkers(user_details)
