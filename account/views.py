@@ -40,12 +40,13 @@ def First(request):
 
 
 def Second(request):
+    user ={}
     if request.method == 'POST': # If the form has been submitted...
         form = SecondForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            user ={}
+            
             if 'user' in request.session:
                 user=request.session['user']
                 user.update({
@@ -62,13 +63,13 @@ def Second(request):
 
     return render(request, 'second.html', {'form': form,"title":title,"message":message})
 def third(request):
-    
+    user ={}
     if request.method == 'POST': # If the form has been submitted...
         form = ThirdForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            user={}
+            # user={}
             if 'user' in request.session:
                 user=request.session['user']
                 user.update({
@@ -87,13 +88,13 @@ def third(request):
 
     return render(request, 'third.html', { 'form': form,"title":title,"message":message})
 def fourth(request):
-    
+    user ={}
     if request.method == 'POST': # If the form has been submitted...
         form = FourForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            user={}
+            # user={}
             if 'user' in request.session:
                 user=request.session['user']
                 user.update({
@@ -117,7 +118,6 @@ def fourth(request):
     else:
         # message=""
         form = FourForm() # An unbound form
-
     return render(request, 'fourth.html', { 'form': form,"title":title,"message":message})
 # Create your views here.
 def Welcome(request):
